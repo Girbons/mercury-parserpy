@@ -1,4 +1,5 @@
 import requests
+import json
 
 from .exceptions import ParserError, InvalidApiKey
 
@@ -33,7 +34,7 @@ class MercuryParser:
 
     def parse_multiple_articles(self, *urls):
         """
-        Parse a list of urls
+        Parse a list of urls in JSON
         """
         self.validate_api_key()
         parsed_articles = []
@@ -43,4 +44,5 @@ class MercuryParser:
             response = session.get(api_request, headers=self._headers)
             if response.json():
                 parsed_articles.append(response.json())
-        return parsed_articles
+        response = json.loads(json.dumps(parsed_articles))
+        return response
