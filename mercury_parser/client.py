@@ -30,3 +30,17 @@ class MercuryParser:
             return response
         else:
             raise ParserError('Error while parsing url: {}'.format(article_url))
+
+    def parse_multiple_articles(self, *urls):
+        """
+        Parse a list of urls
+        """
+        self.validate_api_key()
+        parsed_articles = []
+        session = requests.Session()
+        for url in urls:
+            api_request = 'https://mercury.postlight.com/parser?url={}'.format(url)
+            response = session.get(api_request, headers=self._headers)
+            if response.json():
+                parsed_articles.append(response.json())
+        return parsed_articles
