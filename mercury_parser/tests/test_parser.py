@@ -38,4 +38,8 @@ def test_parse_fake_url():
 def test_parse_article():
     parser = MercuryParser(API_KEY_TEST)
     response = parser.parse_article(URL_TEST)
+    assert response.json()['title'] == 'Building Awesome\xa0CMS'
+    assert response.json()['domain'] == 'trackchanges.postlight.com'
+    assert response.json()['lead_image_url'] == 'https://cdn-images-1.medium.com/max/1200/1*zo51eqdjJ_XSU0D8Vm8P9A.png'
+    assert response.json()['word_count'] == 397
     assert response.status_code == 200
