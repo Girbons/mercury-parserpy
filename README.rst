@@ -18,7 +18,7 @@ From the command line::
 Usage
 =====
 
-example::
+.. code-block:: python
 
     from mercury_parser.client import MercuryParser
 
