@@ -26,3 +26,6 @@ Usage
     parser = MercuryParser(api_key='YOUR API KEY')
     article = parser.parse_article('ARTICLE_URL')
     article.json()
+
+    # parse multiple articles urls return a JSON
+    artcles = parser.parse_multiple_article(*ARTICLES_URLS)
