@@ -28,4 +28,4 @@ Usage
     article.json()
 
     # parse multiple articles urls return a JSON
-    artcles = parser.parse_multiple_article(*ARTICLES_URLS)
+    articles = parser.parse_multiple_articles(*ARTICLES_URLS)
