@@ -8,6 +8,9 @@ Mercury Web Parser Python
     :target: https://travis-ci.org/Girbons/mercury-parserpy
 .. image:: https://coveralls.io/repos/github/Girbons/MercuryParserpy/badge.svg?branch=master
     :target: https://coveralls.io/github/Girbons/MercuryParserpy?branch=master
+.. image:: https://requires.io/github/Girbons/mercury-parserpy/requirements.svg?branch=master
+    :target: https://requires.io/github/Girbons/mercury-parserpy/requirements/?branch=master
+    :alt: Requirements Status
 
 Setup
 =====
