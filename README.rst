@@ -2,8 +2,6 @@
 Mercury Web Parser Python
 =========================
 
-.. image:: https://badge.fury.io/py/mercury-parserpy.svg
-    :target: https://badge.fury.io/py/mercury-parserpy
 .. image:: https://travis-ci.org/Girbons/mercury-parserpy.svg?branch=master
     :target: https://travis-ci.org/Girbons/mercury-parserpy
 .. image:: https://coveralls.io/repos/github/Girbons/MercuryParserpy/badge.svg?branch=master
