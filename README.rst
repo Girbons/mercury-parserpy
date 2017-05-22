@@ -5,8 +5,8 @@ Mercury Web Parser Python
 .. image:: https://img.shields.io/travis/Girbons/mercury-parserpy/master.svg?style=flat-square
     :target: https://travis-ci.org/Girbons/mercury-parserpy
     :alt: Build Status
-.. image:: https://img.shields.io/coveralls/Girbons/MercuryParserpy/master.svg?style=flat-square
-    :target: https://coveralls.io/github/Girbons/MercuryParserpy?branch=master
+.. image:: https://img.shields.io/coveralls/Girbons/mercury-parserpy/master.svg?style=flat-square
+    :target: https://coveralls.io/github/Girbons/mercury-parserpy?branch=master
     :alt: Test Coverage
 
 Setup
