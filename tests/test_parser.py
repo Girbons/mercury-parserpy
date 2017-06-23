@@ -1,10 +1,11 @@
 import pytest
 
-from ..client import MercuryParser
-from ..exceptions import InvalidApiKey
+from mercury_parser.client import MercuryParser
+from mercury_parser.exceptions import InvalidApiKey
+
+from .utils import API_KEY
 
 
-API_KEY_TEST = 'CJF8X9y9tKxFWpd70WgAics4G6pePqOKoSYT4Pwn'
 URL_TEST = 'https://trackchanges.postlight.com/building-awesome-cms-f034344d8ed'
 
 
@@ -16,7 +17,7 @@ def test_parse_article_with_invalid_key():
 
 
 def test_parse_article():
-    parser = MercuryParser(API_KEY_TEST)
+    parser = MercuryParser(API_KEY)
     response = parser.parse_article(URL_TEST)
     assert response.json()['title'] == 'Building Awesome\xa0CMS'
     assert response.json()['domain'] == 'trackchanges.postlight.com'
@@ -43,7 +44,7 @@ def test_parse_multiple_articles():
         'https://www.wired.com/2017/03/siris-not-even-best-iphone-assistant-anymore/',
         'https://www.wired.com/2017/03/phishing-scams-fool-even-tech-nerds-heres-avoid/'
     ]
-    parser = MercuryParser(API_KEY_TEST)
+    parser = MercuryParser(API_KEY)
     response = parser.parse_multiple_articles(*urls)
     assert len(response) == 3
 
@@ -54,6 +55,6 @@ def test_parse_multiple_articles_return_empty_list():
         'https://sasasass.com',
         'https://ssaassa.com'
     ]
-    parser = MercuryParser(API_KEY_TEST)
+    parser = MercuryParser(API_KEY)
     response = parser.parse_multiple_articles(*urls)
     assert len(response) == 0

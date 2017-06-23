@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mercury-parserpy",
-    version="0.2",
+    version="0.3",
     description="Mercury Parser Web API",
     long_description=open('README.rst').read(),
     author="Alessandro De Angelis",
