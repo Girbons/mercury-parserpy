@@ -30,7 +30,7 @@ class MercuryParser:
             response = session.get(api_request, headers=self._headers)
             if response.status_code == 401:
                 raise InvalidApiKey('{} Unauthorized'.format(response.status_code))
-            if response.json():
+            if response.ok:
                 parsed_articles.append(response.json())
         response = json.loads(json.dumps(parsed_articles))
         return response
