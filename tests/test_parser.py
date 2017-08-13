@@ -1,7 +1,15 @@
 import pytest
 
+from unittest import mock
+
 from mercury_parser.client import MercuryParser
-from mercury_parser.exceptions import InvalidApiKey
+from mercury_parser.exceptions import (
+    BadRequest,
+    Forbidden,
+    ResourceNotFound,
+    InternalServerError,
+    Unauthorized
+)
 
 from .utils import API_KEY
 
@@ -9,11 +17,54 @@ from .utils import API_KEY
 URL_TEST = 'https://trackchanges.postlight.com/building-awesome-cms-f034344d8ed'
 
 
-def test_parse_article_with_invalid_key():
+@mock.patch('mercury_parser.client.requests.get')
+def test_parse_article_bad_request(mock_request):
+    response = mock.Mock()
+    response.status_code = 400
+    mock_request.return_value = response
     parser = MercuryParser('1234567890')
-    with pytest.raises(InvalidApiKey) as ex:
+    with pytest.raises(BadRequest):
         parser.parse_article(URL_TEST)
-    assert '401 Unauthorized' in str(ex.value)
+
+
+@mock.patch('mercury_parser.client.requests.get')
+def test_parse_article_with_invalid_key(mock_request):
+    response = mock.Mock()
+    response.status_code = 401
+    mock_request.return_value = response
+    parser = MercuryParser('1234567890')
+    with pytest.raises(Unauthorized):
+        parser.parse_article(URL_TEST)
+
+
+@mock.patch('mercury_parser.client.requests.get')
+def test_parse_article_forbidden_request(mock_request):
+    response = mock.Mock()
+    response.status_code = 403
+    mock_request.return_value = response
+    parser = MercuryParser('1234567890')
+    with pytest.raises(Forbidden):
+        parser.parse_article(URL_TEST)
+
+
+@mock.patch('mercury_parser.client.requests.get')
+def test_parse_article_resource_not_found(mock_request):
+    response = mock.Mock()
+    response.status_code = 404
+    mock_request.return_value = response
+    parser = MercuryParser('1234567890')
+    with pytest.raises(ResourceNotFound):
+        parser.parse_article(URL_TEST)
+
+
+@mock.patch('mercury_parser.client.requests.get')
+def test_parse_article_internal_server_error(mock_request):
+    response = mock.Mock()
+    response.status_code = 500
+    mock_request.return_value = response
+    parser = MercuryParser('1234567890')
+    with pytest.raises(InternalServerError):
+        parser.parse_article(URL_TEST)
 
 
 def test_parse_article():
@@ -33,9 +84,8 @@ def test_parse_multiple_articles_with_invalid_key():
         'https://www.wired.com/2017/03/phishing-scams-fool-even-tech-nerds-heres-avoid/'
     ]
     parser = MercuryParser('1234567890')
-    with pytest.raises(InvalidApiKey) as ex:
+    with pytest.raises(Forbidden):
         parser.parse_multiple_articles(*urls)
-    assert '401 Unauthorized' in str(ex.value)
 
 
 def test_parse_multiple_articles():

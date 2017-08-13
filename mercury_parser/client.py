@@ -1,7 +1,13 @@
 import requests
 import json
 
-from .exceptions import InvalidApiKey
+from .exceptions import (
+    BadRequest,
+    Forbidden,
+    InternalServerError,
+    ResourceNotFound,
+    Unauthorized
+)
 
 
 class MercuryParser:
@@ -15,9 +21,7 @@ class MercuryParser:
         """
         api_request = 'https://mercury.postlight.com/parser?url={}'.format(article_url)
         response = requests.get(api_request, headers=self._headers)
-        if response.status_code == 401:
-            raise InvalidApiKey('{} Unauthorized'.format(response.status_code))
-        return response
+        return self.handle_response(response)
 
     def parse_multiple_articles(self, *urls):
         """
@@ -28,9 +32,22 @@ class MercuryParser:
         for url in urls:
             api_request = 'https://mercury.postlight.com/parser?url={}'.format(url)
             response = session.get(api_request, headers=self._headers)
-            if response.status_code == 401:
-                raise InvalidApiKey('{} Unauthorized'.format(response.status_code))
-            if response.ok:
+            if self.handle_response(response):
                 parsed_articles.append(response.json())
         response = json.loads(json.dumps(parsed_articles))
         return response
+
+    def handle_response(self, response):
+        status_code = response.status_code
+        if 200 <= status_code <= 299:
+            return response
+        elif status_code == 400:
+            raise BadRequest
+        elif status_code == 401:
+            raise Unauthorized
+        elif status_code == 403:
+            raise Forbidden
+        elif status_code == 404:
+            raise ResourceNotFound
+        elif status_code == 500:
+            raise InternalServerError
