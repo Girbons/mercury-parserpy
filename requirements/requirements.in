@@ -1,12 +1,2 @@
 # core
 requests
-
-# test
-coverage
-pytest
-pytest-cov
-
-# codestyle
-flake8
-
-
