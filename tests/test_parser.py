@@ -9,7 +9,7 @@ TEST_URL = 'https://trackchanges.postlight.com/building-awesome-cms-f034344d8ed'
 def test_parse_article():
     parser = MercuryParser(API_KEY)
     response = parser.parse_article(TEST_URL)
-    assert response.json()['title'] == 'Building Awesome CMS'
+    assert 'Building Awesome CMS' in response.json()['title']
     assert response.json()['domain'] == 'postlight.com'
     assert response.json()['word_count'] == 426
     assert response.status_code == 200
