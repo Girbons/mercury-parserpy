@@ -3,15 +3,11 @@ from mercury_parser.client import MercuryParser
 from .utils import API_KEY
 
 
-TEST_URL = 'https://trackchanges.postlight.com/building-awesome-cms-f034344d8ed'
-
-
 def test_parse_article():
     parser = MercuryParser(API_KEY)
-    response = parser.parse_article(TEST_URL)
-    assert 'Building Awesome CMS' in response.json()['title']
-    assert response.json()['domain'] == 'postlight.com'
-    assert response.json()['word_count'] == 426
+    response = parser.parse_article('https://medium.com/swlh/alexa-play-some-music-isnt-the-only-time-amazon-is-listening-to-you-a556df19613f') # noqa
+    assert 'Alexa, play some music' in response.json()['title']
+    assert response.json()['domain'] == 'medium.com'
     assert response.status_code == 200
 
 
