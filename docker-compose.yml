@@ -1,0 +1,7 @@
+version: "2"
+
+services:
+  mercury-api:
+    image: wangqiru/mercury-parser-api
+    ports:
+      - "3000:3000"

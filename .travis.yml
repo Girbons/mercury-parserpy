@@ -1,22 +1,15 @@
 language: python
-
-python:
-  - 2.7
-  - 3.5
-  - 3.6
-# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
-matrix:
-  include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
-
+dist: xenial
+python: "3.7"
+env:
+  - DOCKER_COMPOSE_VERSION=1.24.1
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose up -d
 install:
-  - pip install tox-travis
-  - pip install coveralls
-
+  - pip install tox
 script:
   - tox -r
-
-after_script:
-  - coveralls

@@ -2,30 +2,34 @@ import requests
 import json
 
 
-API_ENDPOINT = 'https://mercury.postlight.com/parser?url={}'
+# default api_endpoint
+API_ENDPOINT = "http://localhost:3000/"
 
 
-class MercuryParser(object):
-    def __init__(self, api_key):
+class MercuryParser:
+    def __init__(self, api_endpoint=API_ENDPOINT, api_key=None):
         self.api_key = api_key
-        self.headers = {'x-api-key': self.api_key}
+        self.api_endpoint = api_endpoint
+        self.headers = {"x-api-key": self.api_key}
 
     def parse_article(self, article_url):
         """
-        Parse article URL
+        Parse article URL returns a requests.Response
         """
-        response = requests.get(API_ENDPOINT.format(article_url), headers=self.headers)
+        url = "{}parser?url={}".format(self.api_endpoint, article_url)
+        response = requests.get(url, headers=self.headers)
         return response
 
     def parse_multiple_articles(self, *urls):
         """
         Parse a list of urls
-        return a dict where the key is the article url
+        returns a dict where the key is the article url
         """
         parsed_articles = {}
         session = requests.Session()
         for url in urls:
-            response = session.get(API_ENDPOINT.format(url), headers=self.headers)
+            url = "{}parser?url={}".format(self.api_endpoint, url)
+            response = session.get(url, headers=self.headers)
             parsed_articles[url] = response.json()
 
         response = json.loads(json.dumps(parsed_articles))
