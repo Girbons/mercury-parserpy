@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mercury-parserpy"
+version = "0.7.0"
+description = ""
+authors = ["Alessandro De Angelis <alessandrodea22@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "2.27.1"
+
+[tool.poetry.dev-dependencies]
+black = "^21.12b0"
+coverage = "^6.2"
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

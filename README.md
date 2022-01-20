@@ -21,9 +21,12 @@ parser = MercuryParser()
 article = parser.parse_article('ARTICLE_URL')
 article.json()
 
+
+articles = ['url1', 'url2', 'url3']
+
 # parse multiple articles urls return a JSON
 # where the key is the article url
-articles = parser.parse_multiple_articles(*ARTICLES_URLS)
+articles = parser.parse_multiple_articles(articles)
 ```
 
 ### Customize API Endpoint

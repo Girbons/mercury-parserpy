@@ -1,18 +1,24 @@
-import requests
 import json
+
+from typing import Any, Dict, List
+from dataclasses import dataclass
+
+import requests
 
 
 # default api_endpoint
 API_ENDPOINT = "http://localhost:3000/"
 
 
+@dataclass
 class MercuryParser:
-    def __init__(self, api_endpoint=API_ENDPOINT, api_key=None):
-        self.api_key = api_key
-        self.api_endpoint = api_endpoint
+    api_key: str = None
+    api_endpoint: str = API_ENDPOINT
+
+    def __post_init__(self):
         self.headers = {"x-api-key": self.api_key}
 
-    def parse_article(self, article_url):
+    def parse_article(self, article_url: str) -> Dict[str, Any]:
         """
         Parse article URL returns a requests.Response
         """
@@ -20,7 +26,7 @@ class MercuryParser:
         response = requests.get(url, headers=self.headers)
         return response
 
-    def parse_multiple_articles(self, *urls):
+    def parse_multiple_articles(self, urls: List[str]) -> List[Dict[str, Any]]:
         """
         Parse a list of urls
         returns a dict where the key is the article url

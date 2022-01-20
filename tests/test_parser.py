@@ -18,5 +18,5 @@ def test_parse_multiple_articles():
         "https://www.wired.com/2017/03/phishing-scams-fool-even-tech-nerds-heres-avoid/",
     ]
     parser = MercuryParser()
-    response = parser.parse_multiple_articles(*urls)
+    response = parser.parse_multiple_articles(urls)
     assert len(response.keys()) == 3

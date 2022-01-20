@@ -1,7 +1,7 @@
-version: "2"
+version: "3"
 
 services:
   mercury-api:
-    image: wangqiru/mercury-parser-api
+    image: wangqiru/mercury-parser-api:latest
     ports:
       - "3000:3000"
